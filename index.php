@@ -56,7 +56,36 @@
 <body>
 
 
-    
+    <table>
+        <thead>
+            <tr>
+                <?php
+                    foreach ($hotels[0] as $key => $value) {
+                        echo "<th>";
+                        echo $key;
+                        echo "</th>";
+                    };
+                ?>
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php
+                foreach ($hotels as $hotel) {
+                    echo "<tr>";
+
+                    foreach ($hotel as $key => $value) {
+                        echo "<td>";
+                        echo $value;
+                        echo "</td>";
+                    };
+
+                    echo "</tr>";
+                };
+            ?>
+        </tbody>
+    </table>
+
 
     
 </body>
