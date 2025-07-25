@@ -58,6 +58,55 @@
 </head>
 <body>
 
+    <section class="my-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <form>
+
+                        <?php
+                            $is_parking = isSet($_GET["parking"]) == true ? $_GET["parking"] : "false";
+                            var_dump($is_parking);
+                        ?>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <?php
+                                    // $input_el = $is_parking == "true" ? '<input name="parking" class="form-check-input" type="checkbox" value="true" id="parking" checked>' : '<input name="parking" class="form-check-input" type="checkbox" value="true" id="parking">';
+
+                                    // echo $input_el;
+
+
+
+                                    $input_el = '<input name="parking" class="form-check-input aaa" type="checkbox" value="true" id="parking" ';
+                                    $input_el .= $is_parking == "true" ? 'checked>' : '>';
+
+                                    echo $input_el;
+
+
+                                    // // NON FUNZIONA
+                                    // $input_el = '<input name="parking" class="form-check-input aaa" type="checkbox" ';
+                                    // $input_el .= $is_parking == "true" ? 'value="true" ' : '';
+                                    // $input_el .= 'id="parking" ';
+                                    // $input_el .= $is_parking == "true" ? 'checked>' : '>';
+
+                                    // echo $input_el;
+                                ?>
+                                
+                                
+                                <label class="form-check-label" for="parking">
+                                    Parking
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <button action="http://localhost:8080/boolean/esercizi/php-hotel/" type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section class="my-5">
         <div class="container">
