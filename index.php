@@ -1,5 +1,8 @@
 <?php
 
+    // # PRIMARY RESOURCE
+
+    // * Default Hotels
     $hotels = [
 
         [
@@ -39,7 +42,23 @@
         ],
 
     ];
+    // var_dump($hotels);
 
+
+
+
+
+    // # $_GET
+    // var_dump($_GET);
+
+    // * $is_parking (if checkbox)
+    // Se presente indica che sto filtrando solo per parcheggio presente
+    $is_parking = isSet($_GET["parking"]) == true ? $_GET["parking"] : "false";
+    // var_dump($is_parking);
+
+    // // * $is_parking (if select) - For Fun e per vedere funzionamento delle select
+    // // Se presente indica che sto filtrando solo per parcheggio presente
+    // $is_parking = isSet($_GET["parking"]);
 ?>
 
 
@@ -64,33 +83,14 @@
                 <div class="col-12">
                     <form>
 
-                        <?php
-                            $is_parking = isSet($_GET["parking"]) == true ? $_GET["parking"] : "false";
-                            var_dump($is_parking);
-                        ?>
-
+                        <!-- * $is_parking (if checkbox)  -->
                         <div class="mb-3">
                             <div class="form-check">
                                 <?php
-                                    // $input_el = $is_parking == "true" ? '<input name="parking" class="form-check-input" type="checkbox" value="true" id="parking" checked>' : '<input name="parking" class="form-check-input" type="checkbox" value="true" id="parking">';
-
-                                    // echo $input_el;
-
-
-
                                     $input_el = '<input name="parking" class="form-check-input aaa" type="checkbox" value="true" id="parking" ';
                                     $input_el .= $is_parking == "true" ? 'checked>' : '>';
 
                                     echo $input_el;
-
-
-                                    // // NON FUNZIONA
-                                    // $input_el = '<input name="parking" class="form-check-input aaa" type="checkbox" ';
-                                    // $input_el .= $is_parking == "true" ? 'value="true" ' : '';
-                                    // $input_el .= 'id="parking" ';
-                                    // $input_el .= $is_parking == "true" ? 'checked>' : '>';
-
-                                    // echo $input_el;
                                 ?>
                                 
                                 
@@ -101,7 +101,28 @@
                         </div>
 
 
-                        <button action="http://localhost:8080/boolean/esercizi/php-hotel/" type="submit" class="btn btn-primary">Submit</button>
+                        <!-- * $is_parking (if select) - For Fun e per vedere funzionamento delle select  -->
+                        <!-- <div class="mb-3">
+                            <label for="parking_filter_select" class="form-label">
+                                Parking filter select menu
+                            </label>
+                            <select name="parking" id="parking_filter_select" class="form-select" aria-label="Default select example">
+                                <option value="" selected>
+                                    Select filter
+                                </option>
+                                <option value="true">
+                                    With parking (True)
+                                </option>
+                                <option value="false">
+                                    No parking (False)
+                                </option>
+                            </select>
+                        </div> -->
+
+
+                        <button action="http://localhost:8080/boolean/esercizi/php-hotel/" type="submit" class="btn btn-primary">
+                            Submit filters
+                        </button>
                     </form>
                 </div>
             </div>
@@ -127,13 +148,15 @@
                         <tbody>
                             <?php
                                 foreach ($hotels as $hotel) {
-                                    echo "<tr>";
-                                    foreach ($hotel as $key => $value) {
-                                        echo "<td>";
-                                        echo $value;
-                                        echo "</td>";
+                                    if ($is_parking == "false" || ($is_parking == "true" && $hotel["parking"] == true)) {
+                                        echo "<tr>";
+                                        foreach ($hotel as $key => $value) {
+                                            echo "<td>";
+                                            echo $value;
+                                            echo "</td>";
+                                        };
+                                        echo "</tr>";
                                     };
-                                    echo "</tr>";
                                 };
                             ?>
                         </tbody>
