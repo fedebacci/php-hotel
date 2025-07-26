@@ -51,18 +51,14 @@
     // # $_GET
     // var_dump($_GET);
 
-    // * $is_parking (if checkbox)
+    // * $is_parking
     // Se presente indica che sto filtrando solo per parcheggio presente
     $is_parking = isSet($_GET["parking"]) == true ? $_GET["parking"] : "false";
     // var_dump($is_parking);
 
-    // // * $is_parking (if select) - For Fun e per vedere funzionamento delle select
-    // // Se presente indica che sto filtrando solo per parcheggio presente
-    // $is_parking = isSet($_GET["parking"]);
-
     // * $vote
-    // * $vote = isSet($_GET["parking"]) == true ? $_GET["parking"] : "false";
     $vote = isSet($_GET["vote"]) == true ? $_GET["vote"] : "0";
+    // var_dump($vote);
 ?>
 
 
@@ -87,7 +83,7 @@
                 <div class="col-12">
                     <form>
 
-                        <!-- * $is_parking (if checkbox)  -->
+                        <!-- * $is_parking  -->
                         <div class="mb-3">
                             <div class="form-check">
                                 <?php
@@ -97,7 +93,6 @@
                                     echo $input_el;
                                 ?>
                                 
-                                
                                 <label class="form-check-label" for="parking">
                                     Parking
                                 </label>
@@ -105,31 +100,11 @@
                         </div>
 
 
-                        <!-- * $is_parking (if select) - For Fun e per vedere funzionamento delle select  -->
-                        <!-- <div class="mb-3">
-                            <label for="parking_filter_select" class="form-label">
-                                Parking filter select menu
-                            </label>
-                            <select name="parking" id="parking_filter_select" class="form-select" aria-label="Default select example">
-                                <option value="" selected>
-                                    Select filter
-                                </option>
-                                <option value="true">
-                                    With parking (True)
-                                </option>
-                                <option value="false">
-                                    No parking (False)
-                                </option>
-                            </select>
-                        </div> -->
-
-
                         <!-- * $vote  -->
                         <div class="mb-3">
                             <label for="vote" class="form-label">
                                 Min vote
                             </label>
-                            <!-- <input name="vote" type="number" class="form-control" id="vote"> -->
 
                             <?php
                                 $input_el = '<input name="vote" type="number" class="form-control" id="vote" value="' . $vote . '">';
@@ -183,9 +158,29 @@
                                     {
                                         echo "<tr>";
                                         foreach ($hotel as $key => $value) {
-                                            echo "<td>";
-                                            echo $value;
-                                            echo "</td>";
+                                            if ($key == "parking" && $value == 1) {
+                                                echo "<td>";
+                                                echo "✔️";
+                                                echo "</td>";
+                                            } else if ($key == "parking") {
+                                                echo "<td>";
+                                                echo "❌";
+                                                echo "</td>";
+                                            } else if ($key == "vote") {
+                                                echo "<td>";
+                                                for ($i = 0; $i < $value; $i++) {
+                                                    echo "⭐";
+                                                };
+                                                echo "</td>";
+                                            } else if ($key == "distance_to_center") {
+                                                echo "<td>";
+                                                echo "$value km";
+                                                echo "</td>";
+                                            } else {
+                                                echo "<td>";
+                                                echo $value;
+                                                echo "</td>";
+                                            };
                                         };
                                         echo "</tr>";
                                     };
