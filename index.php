@@ -50,20 +50,31 @@
 
     // # $_GET
     // var_dump($_GET);
-
-    // * $is_parking
-    // Se presente indica che sto filtrando solo per parcheggio presente
-    $is_parking = isSet($_GET["parking"]) == true ? $_GET["parking"] : "false";
-    // var_dump($is_parking);
+    
+    // * $name
+    // $name = isSet($_GET["name"]) == true ? $_GET["name"] : "";
+    $name = isSet($_GET["name"]) == true ? $_GET["name"] : null;
+    // var_dump($name);
+    
+    // * $description
+    // $description = isSet($_GET["description"]) == true ? $_GET["description"] : "";
+    $description = isSet($_GET["description"]) == true ? $_GET["description"] : null;
+    // var_dump($description);
 
     // * $vote
-    $vote = isSet($_GET["vote"]) == true ? $_GET["vote"] : "0";
+    // $vote = isSet($_GET["vote"]) == true ? $_GET["vote"] : "0";
+    $vote = isSet($_GET["vote"]) == true ? $_GET["vote"] : null;
     // var_dump($vote);
     
     // * $distance_to_center
     // $distance_to_center = isSet($_GET["distance_to_center"]) == true ? $_GET["distance_to_center"] : 100;
     $distance_to_center = isSet($_GET["distance_to_center"]) == true ? $_GET["distance_to_center"] : null;
     // var_dump($distance_to_center);
+    
+    // * $is_parking
+    // Se presente indica che sto filtrando solo per parcheggio presente
+    $is_parking = isSet($_GET["parking"]) == true ? $_GET["parking"] : "false";
+    // var_dump($is_parking);
 ?>
 
 
@@ -86,67 +97,129 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <form>
+                    <div class="card">
 
-                        <!-- * $is_parking  -->
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <?php
-                                    $input_el = '<input name="parking" class="form-check-input aaa" type="checkbox" value="true" id="parking" ';
-                                    $input_el .= $is_parking == "true" ? 'checked>' : '>';
+                        <div class="card-header">
+                            <h4 class="m-0">
+                                Filters
+                            </h4>
+                        </div>
 
-                                    echo $input_el;
-                                ?>
+                        <form class="card-body">
+
+                            <div class="row g-3">
+
+
+
+
+                            
+                                <!-- * $name -->
+                                <div class="col-12 col-md-6">
+                                    <label for="name" class="form-label">
+                                        Contains in name
+                                    </label>
+
+                                    <?php
+                                        $input_el = '<input name="name" type="text" class="form-control" id="name" value="' . $name . '">';
+        
+                                        echo $input_el;
+                                    ?>
+                                </div>
+
+                                <!-- * $description -->
+                                <div class="col-12 col-md-6">
+                                    <label for="description" class="form-label">
+                                        Contains in description
+                                    </label>
+
+                                    <?php
+                                        $input_el = '<input name="description" type="text" class="form-control" id="description" value="' . $description . '">';
+        
+                                        echo $input_el;
+                                    ?>
+                                </div>
+
+
+
+
+
+                                <!-- * $vote  -->
+                                <div class="col-12 col-md-6">
+                                    <label for="vote" class="form-label">
+                                        Min vote
+                                    </label>
+        
+                                    <?php
+                                        $input_el = '<input name="vote" type="number" class="form-control" id="vote" value="' . $vote . '">';
+        
+                                        echo $input_el;
+                                    ?>
+                                </div>
+
+                                <!-- * $distance_to_center  -->
+                                <div class="col-12 col-md-6">
+                                    <label for="distance_to_center" class="form-label">
+                                        Max distance from center
+                                    </label>
+        
+                                    <?php
+                                        $input_el = '<input name="distance_to_center" type="number" class="form-control" id="distance_to_center" value="' . $distance_to_center . '" />';
+        
+                                        echo $input_el;
+                                    ?>
+                                </div>
                                 
-                                <label class="form-check-label" for="parking">
-                                    Parking
-                                </label>
+                                <!-- * $is_parking  -->
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <?php
+                                            $input_el = '<input name="parking" class="form-check-input aaa" type="checkbox" value="true" id="parking" ';
+                                            $input_el .= $is_parking == "true" ? 'checked>' : '>';
+        
+                                            echo $input_el;
+                                        ?>
+                                        
+                                        <label class="form-check-label" for="parking">
+                                            Parking
+                                        </label>
+                                    </div>
+                                </div>
+
+
+
+                                <!-- SUBMIT -->
+                                <div class="col-12">
+                                    <button action="http://localhost:8080/boolean/esercizi/php-hotel/" type="submit" class="btn btn-primary d-block w-100">
+                                        Submit filters
+                                    </button>
+                                    <!-- <button action="http://localhost:8080/boolean/esercizi/php-hotel/" type="submit" class="btn btn-primary">
+                                        Submit filters
+                                    </button> -->
+                                </div>
                             </div>
-                        </div>
-
-
-                        <!-- * $vote  -->
-                        <div class="mb-3">
-                            <label for="vote" class="form-label">
-                                Min vote
-                            </label>
-
-                            <?php
-                                $input_el = '<input name="vote" type="number" class="form-control" id="vote" value="' . $vote . '">';
-
-                                echo $input_el;
-                            ?>
-                        </div>
-
-
-
-                        <!-- * $distance_to_center  -->
-                        <div class="mb-3">
-                            <label for="distance_to_center" class="form-label">
-                                Max distance from center
-                            </label>
-
-                            <?php
-                                $input_el = '<input name="distance_to_center" type="number" class="form-control" id="distance_to_center" value="' . $distance_to_center . '" />';
-
-                                echo $input_el;
-                            ?>
-                        </div>
-
-
-                        <button action="http://localhost:8080/boolean/esercizi/php-hotel/" type="submit" class="btn btn-primary">
-                            Submit filters
-                        </button>
-                    </form>
+    
+    
+    
+    
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+
+
+
+
+
     <section class="my-5">
         <div class="container">
             <div class="row">
                 <div class="col-12">
+                    <h1>
+                        Hotels
+                    </h1>
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -179,6 +252,14 @@
                                             &&
                                         (
                                             $distance_to_center != null ? $hotel["distance_to_center"] <= $distance_to_center : true
+                                        )
+                                            &&
+                                        (
+                                            $name != null ? (strlen($name) > 0 && str_contains(strtolower($hotel["name"]), strtolower($name))) : true
+                                        )
+                                            &&
+                                        (
+                                            $description != null ? (strlen($description) > 0 && str_contains(strtolower($hotel["description"]), strtolower($description))) : true
                                         )
                                     ) 
                                     {
