@@ -59,6 +59,11 @@
     // * $vote
     $vote = isSet($_GET["vote"]) == true ? $_GET["vote"] : "0";
     // var_dump($vote);
+    
+    // * $distance_to_center
+    // $distance_to_center = isSet($_GET["distance_to_center"]) == true ? $_GET["distance_to_center"] : 100;
+    $distance_to_center = isSet($_GET["distance_to_center"]) == true ? $_GET["distance_to_center"] : null;
+    // var_dump($distance_to_center);
 ?>
 
 
@@ -114,6 +119,21 @@
                         </div>
 
 
+
+                        <!-- * $distance_to_center  -->
+                        <div class="mb-3">
+                            <label for="distance_to_center" class="form-label">
+                                Max distance from center
+                            </label>
+
+                            <?php
+                                $input_el = '<input name="distance_to_center" type="number" class="form-control" id="distance_to_center" value="' . $distance_to_center . '" />';
+
+                                echo $input_el;
+                            ?>
+                        </div>
+
+
                         <button action="http://localhost:8080/boolean/esercizi/php-hotel/" type="submit" class="btn btn-primary">
                             Submit filters
                         </button>
@@ -133,7 +153,7 @@
                                 <?php
                                     foreach ($hotels[0] as $key => $value) {
                                         echo "<th>";
-                                        echo $key;
+                                        echo str_replace("_"," ",ucfirst($key));
                                         echo "</th>";
                                     };
                                 ?>
@@ -153,7 +173,13 @@
                                             )
                                         )
                                             &&
-                                        $hotel["vote"] >= $vote
+                                        (
+                                            $hotel["vote"] >= $vote
+                                        )
+                                            &&
+                                        (
+                                            $distance_to_center != null ? $hotel["distance_to_center"] <= $distance_to_center : true
+                                        )
                                     ) 
                                     {
                                         echo "<tr>";
