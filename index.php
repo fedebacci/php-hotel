@@ -59,6 +59,10 @@
     // // * $is_parking (if select) - For Fun e per vedere funzionamento delle select
     // // Se presente indica che sto filtrando solo per parcheggio presente
     // $is_parking = isSet($_GET["parking"]);
+
+    // * $vote
+    // * $vote = isSet($_GET["parking"]) == true ? $_GET["parking"] : "false";
+    $vote = isSet($_GET["vote"]) == true ? $_GET["vote"] : "0";
 ?>
 
 
@@ -120,6 +124,21 @@
                         </div> -->
 
 
+                        <!-- * $vote  -->
+                        <div class="mb-3">
+                            <label for="vote" class="form-label">
+                                Min vote
+                            </label>
+                            <!-- <input name="vote" type="number" class="form-control" id="vote"> -->
+
+                            <?php
+                                $input_el = '<input name="vote" type="number" class="form-control" id="vote" value="' . $vote . '">';
+
+                                echo $input_el;
+                            ?>
+                        </div>
+
+
                         <button action="http://localhost:8080/boolean/esercizi/php-hotel/" type="submit" class="btn btn-primary">
                             Submit filters
                         </button>
@@ -148,7 +167,20 @@
                         <tbody>
                             <?php
                                 foreach ($hotels as $hotel) {
-                                    if ($is_parking == "false" || ($is_parking == "true" && $hotel["parking"] == true)) {
+                                    if (
+                                        (
+                                            $is_parking == "false" 
+                                                || 
+                                            (
+                                                $is_parking == "true" 
+                                                    && 
+                                                $hotel["parking"] == true
+                                            )
+                                        )
+                                            &&
+                                        $hotel["vote"] >= $vote
+                                    ) 
+                                    {
                                         echo "<tr>";
                                         foreach ($hotel as $key => $value) {
                                             echo "<td>";
